@@ -1,12 +1,13 @@
 <template>
   <div class="list-wrapper">
     <input type="checkbox" id="adult" :value="isAdult" @input="checkAdult" />
-    <label for="adult">{{ `Я совершеннолетний: ${adultText}` }}</label>
+    <label ref="label" for="adult">{{ `Я совершеннолетний: ${adultText}` }}</label>
 
     <template v-if="isAdult">
-      <h4>Список действий:</h4>
+      <p ref="todo-title">Список действий:</p>
       <div class="control-panel">
         <input
+          ref="todo-input"
           v-model.trim="text"
           type="text"
           @keyup.enter="addText"
@@ -35,7 +36,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, useTemplateRef, nextTick } from 'vue'
 import type { TextType, TodosType, CheckboxType, TodoType } from './types/types'
 import DeleteIcon from '@/components/elements/Icon/DeleteIcon.vue'
 
@@ -48,17 +49,25 @@ const filterreTodosdByUpperCase = computed(() => {
 const adultText = computed(() => {
   return !isAdult.value ? 'Нет' : 'Да'
 })
+const label = useTemplateRef('label')
+const todoInput = useTemplateRef('todo-input')
+
+onMounted(() => {
+  label.value.textContent = 'Подтверждаю, что мне есть 18 лет'
+})
 
 function input(e: Event) {
   const target = e.target as HTMLInputElement
   console.log('input', target.value, text.value)
 }
 
-function checkAdult() {
+async function checkAdult() {
   isAdult.value = !isAdult.value
   if (isAdult.value) {
     text.value = ''
     todos.value = []
+    await nextTick()
+    if (todoInput) todoInput.value.focus()
   }
 }
 
@@ -77,7 +86,7 @@ function deleteText(item: TodoType) {
   width: 400px;
   margin: 12px;
 
-  h4 {
+  & > p {
     font-size: 18px;
     margin-bottom: 4px;
   }
