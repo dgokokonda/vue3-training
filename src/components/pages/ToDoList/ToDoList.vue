@@ -18,35 +18,52 @@
         </button>
       </div>
       <div v-show="todos.length" class="list">
-        {{ `Количество пунктов: ${todos.length}. Реактивный текст: ${text}` }}
+        <ul
+          v-for="(item, i) in todos"
+          :key="`${item.id}_${i}`"
+          :id="String(item.id)"
+          class="list__item"
+        >
+          <li style="display: flex; gap: 16px">
+            <span>{{ item.name }}</span>
+            <span style="cursor: pointer" @click="deleteText(item)"><DeleteIcon /> </span>
+          </li>
+        </ul>
       </div>
     </template>
     <div style="color: red" v-else>Список доступен только совершеннолетним</div>
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import type { TextType, TodosType, CheckboxType } from './types/types'
+import { ref } from 'vue'
+import type { TextType, TodosType, CheckboxType, TodoType } from './types/types'
+import DeleteIcon from '@/components/elements/Icon/DeleteIcon.vue'
+
 const text = ref<TextType>('')
-let todos = reactive<TodosType>([])
+let todos = ref<TodosType>([])
 const isAdult = ref<CheckboxType>(false)
 
-function input(e) {
-  console.log('input', e.target.value, text.value)
+function input(e: Event) {
+  const target = e.target as HTMLInputElement
+  console.log('input', target.value, text.value)
 }
 
 function checkAdult() {
   isAdult.value = !isAdult.value
   if (isAdult.value) {
     text.value = ''
-    todos = []
+    todos.value = []
   }
 }
 
 function addText() {
   if (!text.value.length) return
-  todos.push({ id: Date.now(), name: text.value })
+  todos.value.push({ id: Date.now(), name: text.value })
   text.value = ''
+}
+
+function deleteText(item: TodoType) {
+  todos.value = todos.value.filter(({ id }) => item.id !== id)
 }
 </script>
 <style lang="scss" scoped>

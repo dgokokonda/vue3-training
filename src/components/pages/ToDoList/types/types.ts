@@ -1,5 +1,9 @@
 export type TextType = string
 
-export type TodosType = { id: number; name: string }[]
+export interface TodoType {
+  id: number
+  name: string
+}
+export type TodosType = TodoType[]
 
 export type CheckboxType = boolean
