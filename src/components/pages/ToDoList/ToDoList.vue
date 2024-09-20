@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <input type="checkbox" id="adult" :value="isAdult" @input="checkAdult" />
-    <label for="adult">{{ `Я совершеннолетний: ${!isAdult ? 'Нет' : 'Да'}` }}</label>
+    <label for="adult">{{ `Я совершеннолетний: ${adultText}` }}</label>
 
     <template v-if="isAdult">
       <h4>Список действий:</h4>
@@ -17,9 +17,9 @@
           Добавить пункт
         </button>
       </div>
-      <div v-show="todos.length" class="list">
+      <div v-show="filterreTodosdByUpperCase.length" class="list">
         <ul
-          v-for="(item, i) in todos"
+          v-for="(item, i) in filterreTodosdByUpperCase"
           :key="`${item.id}_${i}`"
           :id="String(item.id)"
           class="list__item"
@@ -35,13 +35,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { TextType, TodosType, CheckboxType, TodoType } from './types/types'
 import DeleteIcon from '@/components/elements/Icon/DeleteIcon.vue'
 
 const text = ref<TextType>('')
 let todos = ref<TodosType>([])
 const isAdult = ref<CheckboxType>(false)
+const filterreTodosdByUpperCase = computed(() => {
+  return todos.value.map((item) => ({ ...item, name: item.name.toUpperCase() }))
+})
+const adultText = computed(() => {
+  return !isAdult.value ? 'Нет' : 'Да'
+})
 
 function input(e: Event) {
   const target = e.target as HTMLInputElement
