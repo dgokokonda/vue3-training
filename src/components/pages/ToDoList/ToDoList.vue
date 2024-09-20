@@ -49,19 +49,19 @@ const filterreTodosdByUpperCase = computed(() => {
 const adultText = computed(() => {
   return !isAdult.value ? 'Нет' : 'Да'
 })
-const label = useTemplateRef('label')
-const todoInput = useTemplateRef('todo-input')
+const label = ref<HTMLElement | null>(null)
+const todoInput = useTemplateRef<HTMLElement | null>('todo-input')
 
 onMounted(() => {
   label.value.textContent = 'Подтверждаю, что мне есть 18 лет'
 })
 
-function input(e: Event) {
+function input(e: Event): void {
   const target = e.target as HTMLInputElement
   console.log('input', target.value, text.value)
 }
 
-async function checkAdult() {
+async function checkAdult(): Promise<void> {
   isAdult.value = !isAdult.value
   if (isAdult.value) {
     text.value = ''
@@ -71,13 +71,13 @@ async function checkAdult() {
   }
 }
 
-function addText() {
+function addText(): void {
   if (!text.value.length) return
   todos.value.push({ id: Date.now(), name: text.value })
   text.value = ''
 }
 
-function deleteText(item: TodoType) {
+function deleteText(item: TodoType): void {
   todos.value = todos.value.filter(({ id }) => item.id !== id)
 }
 </script>
