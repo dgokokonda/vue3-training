@@ -1,8 +1,13 @@
 <template>
   <div class="header" :class="{ 'header--empty': !title?.length && !subtitle?.text?.length }">
-    <h1 v-if="title?.length" v-html="title.toUpperCase()"></h1>
-    <h3 v-if="subtitle?.text?.length" v-html="subtitle.text"></h3>
-    <p>{{ `Показано страниц: ${pages.totalCount}` }}</p>
+    <slot name="header" :defaultTitle="title">
+      <p>Default Slot Header Content</p>
+    </slot>
+    <template v-if="!$slots.header">
+      <h1 v-if="title?.length" v-html="title.toUpperCase()"></h1>
+      <h3 v-if="subtitle?.text?.length" v-html="subtitle.text"></h3>
+      <p>{{ `Показано страниц: ${pages.totalCount}` }}</p>
+    </template>
     <p>
       Содержание:
       <span v-bind="objectOfAttributes">{{ pages.list.join(' | ') }}</span>

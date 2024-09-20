@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
-    <Header />
+    <Header>
+      <template #header="{ defaultTitle }">
+        <h1 style="color: red; font-weight: bold">{{ defaultTitle || 'TEST' }}</h1>
+      </template>
+    </Header>
     <ToDoListWrapper />
     <GenerateToDo />
   </div>
