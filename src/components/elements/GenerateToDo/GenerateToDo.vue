@@ -4,7 +4,7 @@
       <b>{{ 'Генерация todo'.toUpperCase() }}</b>
     </h4>
     <p><b>Todo id: </b>{{ todoId }}</p>
-    <button @click="todoId++" :disabled="!todoData">Генерировать новый todo</button>
+    <Button @click="todoId++" :disabled="!todoData" />
     <p v-if="!todoData">Загрузка...</p>
     <pre v-else>{{ todoData }}</pre>
   </div>
@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import type { Todo, AsyncVoidFunc } from './types/types'
+import Button from '@/components/elements/Button/Button.vue'
 
 const todoId = ref<number>(1)
 const todoData = ref<Todo>(null)
