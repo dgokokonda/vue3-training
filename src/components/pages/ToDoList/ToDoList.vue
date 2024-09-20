@@ -21,8 +21,9 @@ function input(e) {
   console.log('input', e.target.value, text.value)
 }
 
-function checkAdult() {}
-isAdult.value = !isAdult.value
+function checkAdult() {
+  isAdult.value = !isAdult.value
+}
 
 function addText() {
   if (!text.value.length) return
