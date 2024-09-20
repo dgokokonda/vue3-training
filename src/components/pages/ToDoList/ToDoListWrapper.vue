@@ -14,15 +14,15 @@
           @input="input"
           class="editor"
         />
-        <Button
+        <TheButton
           class="text-button"
           button-name="Добавить пункт"
           :disabled="!text.length"
           @click="addText"
         >
-        </Button>
+        </TheButton>
       </div>
-      <Todos v-show="todos.length" :todos="todos" @deleteTodo="deleteTodo" />
+      <TodoList v-show="todos.length" :todos="todos" @deleteTodo="deleteTodo" />
     </template>
     <div style="color: red" v-else>Список доступен только совершеннолетним</div>
   </div>
@@ -30,8 +30,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, useTemplateRef, nextTick } from 'vue'
 import type { TextType, TodosType, CheckboxType, TodoType } from './types/types'
-import Button from '@/components/elements/Button/Button.vue'
-import Todos from '@/components/elements/Todos/Todos.vue'
+import TheButton from '@/components/elements/Button/TheButton.vue'
+import TodoList from '@/components/elements/Todos/TodoList.vue'
 
 const text = ref<TextType>('')
 let todos = ref<TodosType>([])

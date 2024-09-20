@@ -1,16 +1,16 @@
 <template>
   <div class="wrapper">
-    <Header>
+    <TheHeader>
       <template #header="{ defaultTitle }">
         <h1 style="color: red; font-weight: bold">{{ defaultTitle || 'TEST' }}</h1>
       </template>
-    </Header>
+    </TheHeader>
     <ToDoListWrapper />
     <GenerateToDo />
   </div>
 </template>
 <script setup lang="ts">
-import Header from '@/components/elements/Header/Header.vue'
+import TheHeader from '@/components/elements/Header/TheHeader.vue'
 import ToDoListWrapper from '@/components/pages/ToDoList/ToDoListWrapper.vue'
 import GenerateToDo from '@/components/elements/GenerateToDo/GenerateToDo.vue'
 </script>
