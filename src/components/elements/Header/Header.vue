@@ -1,14 +1,17 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{ 'header--empty': !title?.length && !subtitle?.text?.length }">
     <h1 v-if="title?.length" v-html="title.toUpperCase()"></h1>
     <h3 v-if="subtitle?.text?.length" v-html="subtitle.text"></h3>
     <p>{{ `Показано страниц: ${pages.totalCount}` }}</p>
-    <p>{{ `Содержание: ${pages.list.join(' | ')}` }}</p>
+    <p>
+      Содержание:
+      <span v-bind="objectOfAttributes">{{ pages.list.join(' | ') }}</span>
+    </p>
   </div>
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import type { TitleType, SubtitleType, PagesType } from './types/types'
+import type { TitleType, SubtitleType, PagesType, ObjectOfAttributesType } from './types/types'
 
 const title = ref<TitleType>('')
 const subtitle = reactive<SubtitleType>({ text: '' })
@@ -16,6 +19,11 @@ const pages = ref<PagesType>({
   totalCount: 2,
   list: ['Страница 1', 'Страница 2']
 })
+
+const objectOfAttributes: ObjectOfAttributesType = {
+  style: 'font-weight: bold; color: deepskyblue',
+  class: 'pages'
+}
 
 setTimeout(() => {
   title.value = 'Заголовок'
@@ -39,6 +47,10 @@ setTimeout(() => {
     font-size: 16px;
     line-height: 20px;
     margin: 8px;
+  }
+
+  &--empty {
+    opacity: 0.7;
   }
 }
 </style>
