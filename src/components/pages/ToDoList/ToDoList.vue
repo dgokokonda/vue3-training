@@ -14,9 +14,13 @@
           @input="input"
           class="editor"
         />
-        <button class="text-button" :disabled="!text.length" @click="addText">
-          Добавить пункт
-        </button>
+        <Button
+          class="text-button"
+          button-name="Добавить пункт"
+          :disabled="!text.length"
+          @click="addText"
+        >
+        </Button>
       </div>
       <div v-show="filterreTodosdByUpperCase.length" class="list">
         <ul
@@ -39,6 +43,7 @@
 import { ref, computed, onMounted, useTemplateRef, nextTick } from 'vue'
 import type { TextType, TodosType, CheckboxType, TodoType } from './types/types'
 import DeleteIcon from '@/components/elements/Icon/DeleteIcon.vue'
+import Button from '@/components/elements/Button/Button.vue'
 
 const text = ref<TextType>('')
 let todos = ref<TodosType>([])

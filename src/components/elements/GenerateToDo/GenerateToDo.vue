@@ -4,7 +4,7 @@
       <b>{{ 'Генерация todo'.toUpperCase() }}</b>
     </h4>
     <p><b>Todo id: </b>{{ todoId }}</p>
-    <Button @click="todoId++" :disabled="!todoData" />
+    <Button buttonName="Генерировать новый todo" @click="todoId++" :disabled="!todoData" />
     <p v-if="!todoData">Загрузка...</p>
     <pre v-else>{{ todoData }}</pre>
   </div>
