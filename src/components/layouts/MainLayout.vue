@@ -2,11 +2,13 @@
   <div class="wrapper">
     <Header />
     <ToDoList />
+    <GenerateToDo />
   </div>
 </template>
 <script setup lang="ts">
 import Header from '@/components/elements/Header/Header.vue'
 import ToDoList from '@/components/pages/ToDoList/ToDoList.vue'
+import GenerateToDo from '@/components/elements/GenerateToDo/GenerateToDo.vue'
 </script>
 <style lang="scss" scoped>
 .wrapper {
