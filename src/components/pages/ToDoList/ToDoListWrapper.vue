@@ -36,7 +36,7 @@ import Todos from '@/components/elements/Todos/Todos.vue'
 const text = ref<TextType>('')
 let todos = ref<TodosType>([])
 const isAdult = ref<CheckboxType>(false)
-const adultText = computed(() => {
+const adultText = computed<string>(() => {
   return !isAdult.value ? 'Нет' : 'Да'
 })
 const label = ref<HTMLElement | null>(null)

@@ -20,7 +20,7 @@ import DeleteIcon from '@/components/elements/Icon/DeleteIcon.vue'
 
 const { todos = [] } = defineProps<TodosProps>()
 const emit = defineEmits<TodosEmits>()
-const filterreTodosdByUpperCase = computed(() => {
+const filterreTodosdByUpperCase = computed<TodoType[] | []>(() => {
   return todos.map((item: TodoType) => ({ ...item, name: item.name.toUpperCase() }))
 })
 
